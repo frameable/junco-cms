@@ -1,0 +1,31 @@
+extends layout
+
+include mixins/form
+
+block content
+  #js--content.show
+    +notice()
+    header
+      h1 Pages
+      a(href="/pages/new").btn.btn-default
+        | New page
+    table.table.doc-list
+      each item in items
+        tr
+          td
+            a(href=item.page.urlForShow()) #{item.page.title}
+
+          td.meta
+            a(href=`${item.page.urlForHistory()}`, title="History")
+              span.date(title=item.page.metadata.date) #{item.page.metadata.relDate}
+          td.meta
+            .flex
+              +avatar(item.page.metadata.email, item.page.metadata.author, 16)
+              | #{item.page.metadata.author}
+
+    ul.paginator
+      if pageNumbers.length > 1
+        each pageNumber in pageNumbers
+          - var klass = pageNumber == pageCurrent ? 'current' : ''
+          li(class=klass)
+            a(href=`?page=${pageNumber}`) #{pageNumber}

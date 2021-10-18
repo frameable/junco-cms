@@ -1,0 +1,95 @@
+{
+  "application": {
+    "title": "Jingo",
+    "logo": "",
+    "favicon": "",
+    "repository": "",
+    "docSubdir": "",
+    "remote": "",
+    "pushInterval": 30,
+    "secret": "change me",
+    "git": "git",
+    "skipGitCheck": false,
+    "loggingMode": 1,
+    "pedanticMarkdown": true,
+    "gfmBreaks": true,
+    "staticWhitelist": "/\\.png$/i, /\\.jpg$/i, /\\.gif$/i",
+    "proxyPath": "",
+    "allowHtml": false
+  },
+  "authentication": {
+    "google": {
+      "enabled": true,
+      "clientId": "replace me with the real value",
+      "clientSecret": "replace me with the real value",
+      "redirectURL": ""
+    },
+    "github": {
+      "enabled": false,
+      "clientId": "replace me with the real value",
+      "clientSecret": "replace me with the real value",
+      "redirectURL": ""
+    },
+    "ldap": {
+      "enabled": false,
+      "url": "ldap://example.org:389",
+      "bindDn": "",
+      "bindCredentials": "",
+      "searchBase": "ou=people,dc=example,dc=org",
+      "searchFilter": "(uid={{username}})",
+      "searchAttributes": ""
+    },
+    "alone": {
+      "enabled": false,
+      "username": "",
+      "passwordHash": "",
+      "email": ""
+    },
+    "local": {
+      "enabled": false,
+      "accounts": [
+        {
+          "username": "",
+          "passwordHash": "",
+          "email": ""
+        }
+      ]
+    }
+  },
+  "features": {
+    "markitup": false,
+    "codemirror": true,
+    "gravatar": true
+  },
+  "server": {
+    "hostname": "localhost",
+    "port": 6067,
+    "localOnly": false,
+    "baseUrl": "",
+    "CORS": {
+      "enabled": false,
+      "allowedOrigin": "*"
+    }
+  },
+  "authorization": {
+    "anonRead": true,
+    "validMatches": ".+",
+    "emptyEmailMatches": false
+  },
+  "pages": {
+    "index": "Home",
+    "title": {
+      "fromFilename": true,
+      "fromContent": false,
+      "asciiOnly": false,
+      "lowercase": false
+    },
+    "itemsPerPage": 10
+  },
+  "customizations": {
+    "sidebar": "_sidebar.md",
+    "footer": "_footer.md",
+    "style": "_style.css",
+    "script": "_script.js"
+  }
+}

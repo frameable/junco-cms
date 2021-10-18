@@ -1,0 +1,72 @@
+include mixins/links
+
+- if (!isAjax)
+  doctype html
+  html
+    head(profile=hasFavicon() ? "http://www.w3.org/2005/10/profile" : "")
+      meta(charset="utf-8")
+      if hasFavicon()
+        link(rel="icon", type=faviconMimeType, href=faviconUrl)
+      meta(name="generator", content="jingo " + jingoVersion)
+      meta(name="viewport", content="width=device-width, initial-scale=1")
+      title= title
+      +asset("/vendor/bootstrap/css/bootstrap.min.css")
+      link(href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap", rel="stylesheet")
+      +asset("/css/style.css")
+      +asset("/css/ionicons.min.css")
+      +asset("/css/shCoreDefault.css")
+      block styles
+      if hasCustomStyle()
+        style.
+          !{_style}
+    body
+      -var term_ph = (typeof term == "undefined" ? "" : term)
+      .navbar.navbar-inverse
+        .container-fluid
+          .navbar-header
+            +anchor("/", appBrand).navbar-brand
+            if canSearch()
+              form(action=`${proxyPath}/search`).navbar-form.navbar-left.search
+                button.search-button(type="submit")
+                  i.icon.ion-search
+                input(type="text", value=term_ph, data-i-search-input="true",name="term",placeholder="Search")
+            .navbar-right
+              if isAnonymous()
+                +anchor('/login?destination', 'Sign in')#js--login(title='Access login page')
+              else
+                p.user
+                  if hasGravatar()
+                    +avatar(user.email, user.displayName, 24)
+                  span.username
+                    | #{user.displayName}
+                  a.logout(href='/logout', title='Sign out')
+                    i.icon.ion-log-out
+
+
+      .container
+
+        .row
+          if hasSidebar()
+            .col-md-2.with-sidebar
+              .content !{_sidebar}
+
+          #main.hide-tools
+            block content
+
+        if hasFooter()
+          .row
+            .col-md-2
+            .col-md-8.with-footer
+              .content !{_footer}
+
+      script(src=proxyPath + "/vendor/jquery.min.js")
+      +asset("/vendor/bootstrap/js/bootstrap.min.js")
+      +asset("/js/app.js")
+      script.
+        Jingo.init("#{proxyPath}");
+      block scripts
+      if hasCustomScript()
+        script.
+          !{_script}
+- else
+  block content

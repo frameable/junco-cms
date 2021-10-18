@@ -1,0 +1,18 @@
+form(id="wiki_upload", action="/uploadFile", method="post", enctype="multipart/form-data")
+  p#upload_instruction
+    label
+      | Choose file to upload...
+      input(type="file", name="wiki_file", id="wiki_file")
+    input(type="hidden", value="File Attachment Upload", name="file_message")
+  p(hidden)
+    input(type="submit", name="wiki_upload_submit", id="wiki_upload_submit", value="Upload").btn.btn-default
+div(id="upload_status")
+script(src="/vendor/jquery.form.min.js")
+script.
+  $(document).ready(_ => { 
+    $("#wiki_upload").ajaxForm(response => {
+      $('#upload_status').html(response);
+      $('#upload_instruction').html('<i class="icon ion-checkmark-circled"></i> Uploaded');
+    });
+  });
+  $('input[type=file]').on('change', e => $('#wiki_upload').submit())

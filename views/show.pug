@@ -1,0 +1,27 @@
+extends layout
+
+include mixins/form
+
+block content
+
+
+  if !isAjax
+    #js--content.content.show
+      .page-toolbar
+        +anchor("/pages/" + page.name + "/edit")(title="Edit this page").btn.btn-sm.btn-default
+          i.icon.ion-compose
+      +notice()
+      +warning()
+      !=content
+  else
+    .jingo-content.content.jingo-show
+      !=content
+  - var klass = isAjax ? 'jingo-footer' : 'footer'
+  p(class=klass) Updated by&nbsp;
+    +avatar(page.metadata.email, page.metadata.author, 16)
+    b #{page.metadata.author}
+    |,&nbsp;
+    b(title=page.metadata.date) #{page.metadata.relDate}&nbsp;
+    | &ndash; #{page.metadata.hash} &ndash;&nbsp;
+    a(href=`${page.urlForHistory()}`, title="History")
+      | History

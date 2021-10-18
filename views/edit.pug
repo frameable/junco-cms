@@ -1,0 +1,65 @@
+extends layout
+
+include mixins/form
+
+block styles
+  +featuresStylesheets()
+
+block content
+
+  #js--content.edit
+    +errors()
+    +warning()
+    if action == 'edit'
+      h1 Editing #{formData.pageTitle}
+    else
+      h1 Create a new page
+
+    form(method='post', class='edit')
+
+      .form-group
+        input.form-control(rquired, type='text', placeholder='Enter the page title', name='pageTitle', value=coalesce(formData.pageTitle, pageTitle))#js--pageTitle
+
+      ul.toolbar
+        li.edit.tab.active
+          i.icon.ion-compose
+          | Edit
+        li.preview.tab
+          i.icon.ion-eye
+          | Preview
+        li.upload.muted(title="Upload")
+          i.icon.ion-upload
+        li.fullscreen.muted(title="Fullscreen (Cmd+Enter)")
+          i.icon.ion-arrow-expand
+        li.info.muted
+          i.icon.ion-help-circled(title="Formatting syntax")
+
+      .form-group
+        textarea.form-control(name="content", rows=25)#js--editor #{coalesce(formData.content, '')}
+
+      #js--preview.content
+        | preview
+
+      .form-group
+        input.form-control(type='text', name='message', placeholder='Write a small message here explaining this change (optional)')#message.span8
+
+      .well
+        input(type='submit',value=saveText || 'Save',title='Save (Ctrl/Cmd+s)').btn.btn-primary
+        |&nbsp;
+        +anchor("/", "Cancel").btn
+
+        if action == 'edit'
+          a(href=`${page.urlForHistory()}`, title="History", class="btn history-btn btn-tertiary-well")
+            | History
+
+        button(name='_method', value='delete', onclick="return confirm('Delete this page?')").btn.btn-danger.btn-link.btn-tertiary-well
+          | Delete page
+
+  #upload(tabindex="-1",role="dialog",aria-hidden="true").modal
+    +dialogBox("Upload a file")
+
+  #js--syntax-reference(tabindex="-1",role="dialog",aria-hidden="true").modal
+    +dialogBox("Markdown cheatsheet")
+
+block scripts
+  +featuresJavaScripts()
