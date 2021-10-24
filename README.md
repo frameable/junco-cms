@@ -89,27 +89,27 @@ $ curl localhost/api/pages/my-page
 {
   "page": {
     "tokens": [
-      {"type":"heading","depth":1,"text":"Heading 1"},
+      {"type":"heading","depth":1,"text":"Title"},
       {"type":"paragraph","text":"Introductory paragraph text"},
-      {"type":"heading","depth":2,"text":"Heading 2"},
+      {"type":"heading","depth":2,"text":"Heading"},
       {"type":"paragraph","text":"Descriptive paragraph text"}
     ],
     "content": "
-      <section data-level=1 id=\"heading-\">
-        <h1>Heading 1</h1>
+      <section data-level=1 id=\"title\">
+        <h1>Title</h1>
         <p>Introductory paragraph text</p>
-        <section data-level=2 id=\"heading-\">
-          <h2>Heading 2</h2>
+        <section data-level=2 id=\"heading\">
+          <h2>Heading</h2>
           <p>Descriptive paragraph text</p>
         </section>
       </section>
     ",
     "source": "
-      # Heading 1
+      # Title
 
       Introductory paragraph text
 
-      ## Heading 2
+      ## Heading
 
       Descriptive paragraph text
     ",
