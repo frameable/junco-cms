@@ -3,9 +3,9 @@
     "title": "Jingo",
     "logo": "",
     "favicon": "",
-    "repository": "",
+    "repository": "/var/tmp/content",
     "docSubdir": "",
-    "remote": "",
+    "remote": "origin",
     "pushInterval": 30,
     "secret": "change me",
     "git": "git",
@@ -19,7 +19,7 @@
   },
   "authentication": {
     "google": {
-      "enabled": true,
+      "enabled": false,
       "clientId": "replace me with the real value",
       "clientSecret": "replace me with the real value",
       "redirectURL": ""
@@ -46,11 +46,11 @@
       "email": ""
     },
     "local": {
-      "enabled": false,
+      "enabled": true,
       "accounts": [
         {
-          "username": "",
-          "passwordHash": "",
+          "username": "admin",
+          "passwordHash": "d033e22ae348aeb5660fc2140aec35850c4da997",
           "email": ""
         }
       ]

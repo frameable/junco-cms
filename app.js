@@ -60,12 +60,7 @@ function start() {
   }
 
   http.createServer(app).listen(config.get('server').port, listenAddr, function () {
-    console.log(
-      new Date() + ' - Jingo%sserver v%s listening on port %s',
-      config.get('server').localOnly ? ' (local) ' : ' ',
-      program.version(),
-      config.get('server').port
-    )
+    console.log('listening on port %s', config.get('server').port)
   })
 
   if (config.get('application').allowHtml) {
