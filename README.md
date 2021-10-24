@@ -25,12 +25,14 @@ Configure a git repo where youre content will live:
 ```bash
 mkdir /var/tmp/content
 git -C /var/tmp/content init
+git -C /var/tmp/content remote add origin ...
 ```
 
 Specify the path to your repo in `config/default.json`:
 
 ```
   ...
+  "remote": "origin",
   "repository": "/var/tmp/content",
   ...
 ```
@@ -57,9 +59,7 @@ Junco exposes a basic API for listing and retrieving content.
 List all pages, optionally filtered with a prefix-match.
 
 ```bash
-$ curl /pages?prefix=my-namespace:
-
-HTTP/1.1 200 OK
+$ curl localhost/api/pages?prefix=my-namespace:
 
 {
   "pages":[
@@ -84,6 +84,8 @@ HTTP/1.1 200 OK
 Get the contents of a page.  Content is cached in memory for two minutes, so responses may be slightly stale.
 
 ```bash
+$ curl localhost/api/pages/my-page
+
 {
   "page": {
     "tokens": [
