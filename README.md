@@ -29,7 +29,7 @@ git -C /var/tmp/content init
 
 Specify the path to your repo in `config/default.json`:
 
-```json
+```
   ...
   "repository": "/var/tmp/content",
   ...
