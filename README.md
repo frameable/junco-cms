@@ -47,7 +47,7 @@ Start the application:
 npm start
 ```
 
-The default configuration is to allow for local logins with admin/admin as the credentials.  You should obviously change this in production settings.
+The default configuration is to allow for local logins with admin/admin as the credentials.  You should obviously change this in production settings.  Local passwords are SHA1, so you can generate them in config with `echo -n 'secret-password' | sha1sum` if you like.
 
 ## REST API
 
