@@ -5,7 +5,7 @@
     "favicon": "",
     "repository": "/var/tmp/content",
     "docSubdir": "",
-    "remote": "origin",
+    "remote": "",
     "pushInterval": 30,
     "secret": "change me",
     "git": "git",
