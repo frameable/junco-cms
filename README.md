@@ -47,7 +47,7 @@ npm start
 
 The default configuration is to allow for local logins with admin/admin as the credentials.  You should obviously change this in production settings.
 
-### REST API
+## REST API
 
 Junco exposes a basic API for listing and retrieving content.
 
