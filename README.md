@@ -1,12 +1,6 @@
 # Junco
 
-Minimal git-based CMS in Node.js, originally forked from https://github.com/claudioc/jingo
-
-### Introduction
-
-At its core, Junco is essentially a web interface for editing markdown files in a dedicated [git](https://git-scm.com/) repository.  There is basic support for uploading media files so that you can refer to images and videos in page content.  Junco is "headless" -- it is a repository for editing and storing your content.  In order to display content to end-users, you will most likely retrieve content via Junco's REST API and render it in your own front end.  Stored content is available as raw markdown text, structured markdown AST, or hierarchical rendered HTML.
-
-When content is saved, it is checked into the local git repository, and changes are periodically pushed to the configured origin.  For a high-availability setup, production read-only nodes can pull periodically from origin, and an internal read-write node can be available to creators/editors. 
+Minimal git-based CMS in Node.js
 
 ### Features
 
@@ -17,6 +11,14 @@ When content is saved, it is checked into the local git repository, and changes 
 - REST API for reading content in multiple formats
 - Browse revision history and restore from pervious versions
 - Very few moving parts so it is hard to break
+
+### Introduction
+
+At its core, Junco is essentially a web interface for editing markdown files in a dedicated [git](https://git-scm.com/) repository.  There is basic support for uploading media files so that you can refer to images and videos in page content.  Junco is "headless" -- it is a repository for editing and storing your content.  In order to display content to end-users, you will most likely retrieve content via Junco's REST API and render it in your own front end.  Stored content is available as raw markdown text, structured markdown AST, or hierarchical rendered HTML.
+
+When content is saved, it is checked into the local git repository, and changes are periodically pushed to the configured origin.  For a high-availability setup, production read-only nodes can pull periodically from origin, and an internal read-write node can be available to creators/editors. 
+
+Junco was originally forked from [jingo](https://github.com/claudioc/jingo)
 
 ### Getting started
 
