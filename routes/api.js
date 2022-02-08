@@ -69,7 +69,8 @@ async function _getApiPages (req, res) {
 
   const prefix = req.query.prefix;
 
-  pages.fetch(0, prefix).then(function () {
+  const contentOnly = true;
+  pages.fetch(0, prefix, contentOnly).then(function () {
     pages.models.forEach(function (page) {
       if (!page.error) {
         items.push({
