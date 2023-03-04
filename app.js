@@ -59,8 +59,10 @@ function start() {
     listenAddr = 'localhost';
   }
 
-  http.createServer(app).listen(config.get('server').port, listenAddr, function () {
-    console.log('listening on port %s', config.get('server').port)
+  const port = process.env.PORT || config.get('server').port;
+
+  http.createServer(app).listen(port, listenAddr, function () {
+    console.log('listening on port %s', port)
   })
 
   if (config.get('application').allowHtml) {
