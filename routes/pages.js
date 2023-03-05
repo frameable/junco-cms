@@ -18,7 +18,7 @@ router.get('/pages/:page/revert/:version', _getRevert)
 var pagesConfig = app.locals.config.get('pages')
 var proxyPath = app.locals.config.application.proxyPath
 
-function _deletePages (req, res) {
+async function _deletePages (req, res) {
   var page = new models.Page(req.params.page)
 
   if (page.isIndex() || !page.exists()) {
@@ -29,20 +29,20 @@ function _deletePages (req, res) {
 
   page.author = req.user.asGitAuthor
 
-  page.remove().then(function () {
-    page.unlock()
+  await page.remove()
 
-    if (page.isFooter()) {
-      app.locals._footer = null
-    }
+  page.unlock()
 
-    if (page.isSidebar()) {
-      app.locals._sidebar = null
-    }
+  if (page.isFooter()) {
+    app.locals._footer = null
+  }
 
-    req.session.notice = 'The page `' + page.wikiname + '` has been deleted.'
-    res.redirect(proxyPath + '/')
-  })
+  if (page.isSidebar()) {
+    app.locals._sidebar = null
+  }
+
+  req.session.notice = 'The page `' + page.wikiname + '` has been deleted.'
+  res.redirect(proxyPath + '/')
 }
 
 function _getPagesNew (req, res) {
@@ -72,7 +72,7 @@ function _getPagesNew (req, res) {
   })
 }
 
-function _postPages (req, res) {
+async function _postPages (req, res) {
   var errors,
     pageName
 
@@ -107,7 +107,7 @@ function _postPages (req, res) {
   req.sanitize('pageTitle').trim()
   req.sanitize('content').trim()
 
-  if (page.exists()) {
+  if (await page.exists()) {
     req.session.errors = [{msg: 'A document with this title already exists'}]
     res.redirect(page.urlFor('new'))
     return
@@ -117,20 +117,11 @@ function _postPages (req, res) {
   page.title = req.body.pageTitle
   page.content = req.body.content
 
-  page.save().then(function () {
-    res.redirect(page.urlForShow())
-  }).catch(function (err) {
-    res.locals.title = '500 - Internal server error'
-    res.statusCode = 500
-    console.log(err)
-    res.render('500.pug', {
-      message: 'Something went wrong',
-      error: err
-    })
-  })
+  await page.save();
+  res.redirect(page.urlForShow())
 }
 
-function _postPagesPage (req, res) {
+async function _postPagesPage (req, res) {
   var errors,
     page
 
@@ -164,45 +155,38 @@ function _postPagesPage (req, res) {
   // If the title is from content, we never rename a file and the problem does not exist
   if (app.locals.config.get('pages').title.fromFilename &&
       page.name.toLowerCase() !== req.body.pageTitle.toLowerCase()) {
-    page.renameTo(req.body.pageTitle)
-          .then(savePage)
-          .catch(function (ex) {
-            errors = [{
-              param: 'pageTitle',
-              msg: 'A page with this name already exists.',
-              value: ''
-            }]
-            fixErrors()
-          })
+
+    try {
+      await page.renameTo(req.body.pageTitle)
+      savePage();
+    } catch (e) {
+      errors = [{
+        param: 'pageTitle',
+        msg: 'A page with this name already exists.',
+        value: ''
+      }]
+      fixErrors()
+    }
   } else {
     savePage()
   }
 
-  function savePage () {
+  async function savePage () {
     page.title = req.body.pageTitle
     page.content = req.body.content
-    page.save(req.body.message).then(function () {
-      page.unlock()
 
-      if (page.name === '_footer') {
-        components.expire('footer')
-      }
+    await page.save(req.body.message)
+    page.unlock()
 
-      if (page.name === '_sidebar') {
-        components.expire('sidebar')
-      }
+    if (page.name === '_footer') {
+      components.expire('footer')
+    }
 
-      //req.session.notice = 'The page has been updated. <a href="' + page.urlForEdit() + '">Edit it again?</a>'
-      res.redirect(page.urlForShow())
-    }).catch(function (err) {
-      res.locals.title = '500 - Internal server error'
-      res.statusCode = 500
-      console.log(err)
-      res.render('500.pug', {
-        message: 'Something went wrong...',
-        error: err
-      })
-    })
+    if (page.name === '_sidebar') {
+      components.expire('sidebar')
+    }
+
+    res.redirect(page.urlForShow())
   }
 
   function fixErrors () {
@@ -219,7 +203,7 @@ function _postPagesPage (req, res) {
   }
 }
 
-function _getPagesEdit (req, res) {
+async function _getPagesEdit (req, res) {
   var page = new models.Page(req.params.page)
   var warning
 
@@ -227,52 +211,41 @@ function _getPagesEdit (req, res) {
     warning = 'Warning: this page is probably being edited by ' + page.lockedBy.displayName
   }
 
-  models.repositories.refreshAsync().then(function () {
-    return page.fetch()
-  }).then(function () {
-    if (!req.session.formData) {
-      res.locals.formData = {
-        pageTitle: page.title,
-        content: page.rawContent
-      }
-    } else {
-      res.locals.formData = req.session.formData
-      // FIXME remove this when the sessionStorage fallback will be implemented
-      if (!res.locals.formData.content) {
-        res.locals.formData.content = page.content
-      }
+  await models.repositories.refresh()
+  await page.fetch()
+
+  if (!req.session.formData) {
+    res.locals.formData = {
+      pageTitle: page.title,
+      content: page.rawContent
     }
+  } else {
+    res.locals.formData = req.session.formData
+    // FIXME remove this when the sessionStorage fallback will be implemented
+    if (!res.locals.formData.content) {
+      res.locals.formData.content = page.content
+    }
+  }
 
-    res.locals.errors = req.session.errors
+  res.locals.errors = req.session.errors
 
-    delete req.session.errors
-    delete req.session.formData
+  delete req.session.errors
+  delete req.session.formData
 
-    res.render('edit', {
-      title: app.locals.config.get('application').title + ' – Edit page ' + page.title,
-      page: page,
-      warning: warning,
-      action: 'edit',
-    })
+  res.render('edit', {
+    title: app.locals.config.get('application').title + ' – Edit page ' + page.title,
+    page: page,
+    warning: warning,
+    action: 'edit',
   })
 }
 
-function _getRevert (req, res) {
+async function _getRevert (req, res) {
   var page = new models.Page(req.params.page, req.params.version)
-
   page.author = req.user.asGitAuthor
-
-  page.fetch().then(function () {
-    if (!page.error) {
-      page.revert()
-      res.redirect(page.urlFor('history'))
-    } else {
-      res.locals.title = '500 - Internal Server Error'
-      res.statusCode = 500
-      res.render('500.pug')
-      return
-    }
-  })
+  await page.fetch()
+  page.revert()
+  res.redirect(page.urlFor('history'))
 }
 
 module.exports = router

@@ -10,7 +10,7 @@ models.use(Git)
 router.options('/search', corsEnabler)
 router.get('/search', corsEnabler, _getSearch)
 
-function _getSearch (req, res) {
+async function _getSearch (req, res) {
   var record
 
   res.locals.matches = []
@@ -38,21 +38,21 @@ function _getSearch (req, res) {
       return
     }
 
-    models.pages.findStringAsync(res.locals.term).then(function (items) {
-      items.forEach(function (item) {
-        if (item.trim() !== '') {
-          // The null character is added natively by the `git grep` command
-          record = item.split(/\0/)
-          res.locals.matches.push({
-            pageName: path.basename(record[0].replace(/\.md$/, '')),
-            line: record[1] ? ', L' + record[1] : '',
-            text: record.slice(2).join('')
-          })
-        }
-      })
+    const items = await models.pages.findString(res.locals.term);
 
-      renderResults()
+    items.forEach(function (item) {
+      if (item.trim() !== '') {
+        // The null character is added natively by the `git grep` command
+        record = item.split(/\0/)
+        res.locals.matches.push({
+          pageName: path.basename(record[0].replace(/\.md$/, '')),
+          line: record[1] ? ', L' + record[1] : '',
+          text: record.slice(2).join('')
+        })
+      }
     })
+
+    renderResults()
   }
 
   function renderResults () {
