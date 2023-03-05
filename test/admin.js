@@ -143,7 +143,8 @@ suite('admin', async test => {
     assert.equal(response.status, 302);
     assert.match(await log(), /removed.+article-deleteable/);
     assert.match(await log(), /-article-deleteable body/);
-    assert.match(await (await browser.get('/wiki')).text(), /(?!article-deleteable)./);
+    assert.match(await (await browser.get('/wiki')).text(), /article-deleteable.+has been deleted/);
+    assert.doesNotMatch(await (await browser.get('/wiki')).text(), /article-deleteable/);
     var response = await browser.get('/wiki/article%20deleteable');
     assert.equal(response.status, 404);
   });
