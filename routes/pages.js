@@ -45,7 +45,7 @@ async function _deletePages (req, res) {
   res.redirect(proxyPath + '/')
 }
 
-function _getPagesNew (req, res) {
+async function _getPagesNew (req, res) {
   var page
   var title = ''
 

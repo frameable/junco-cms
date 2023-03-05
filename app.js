@@ -20,6 +20,14 @@ global.Git = require('./lib/gitmech')
 
 var refspec = config.get('application').remote.split(/\s+/)
 
+process.on('unhandledRejection', (reason) => {
+  console.error('Unhandled Rejection at:', reason.stack || reason)
+});
+
+process.on('uncaughtException', (reason) => {
+  console.error('Uncaught Exception at:', reason.stack || reason)
+});
+
 Git.setup(
   config.get('application').git,
   config.get('application').repository,
@@ -87,3 +95,4 @@ function start() {
     }, config.get('application').pushInterval * 1000)
   }
 }
+
