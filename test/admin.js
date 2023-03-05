@@ -58,6 +58,15 @@ suite('admin', async test => {
     assert.match(html, /article-3/);
   });
 
+  await test('search', async _ => {
+    const response = await browser.get('/search?term=article');
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, /article-1/);
+    assert.match(html, /article-2/);
+    assert.match(html, /article-3/);
+  });
+
   await test('create', async _ => {
     await browser.post('/pages/new', {
       pageTitle: 'article-4',
