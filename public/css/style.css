@@ -390,6 +390,9 @@ form.search input {
 .jumbotron {
   margin-bottom: 0;
 }
+.jumbotron.clean {
+  background: transparent;
+}
 
 code {
   white-space: auto;
