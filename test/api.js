@@ -42,6 +42,13 @@ suite('api', async test => {
     assert.match(data, /article-3/);
   });
 
+  await test('negative prefix', async _ => {
+    const response = await browser.get('/api/pages?prefix=3e47b75000b0924b6c9ba5759a7cf15d');
+    assert.equal(response.status, 200);
+    const data = await response.text();
+    assert.doesNotMatch(data, /article-1/);
+  });
+
   await teardown();
 
 });
