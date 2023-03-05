@@ -5,7 +5,7 @@
     "favicon": "",
     "repository": "/tmp/junco-cms-test-content",
     "docSubdir": "",
-    "remote": "origin",
+    "remote": "",
     "pushInterval": 10,
     "secret": "change me",
     "git": "git",
