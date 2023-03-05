@@ -1,0 +1,18 @@
+0000000000000000000000000000000000000000 9da33be043beb9a88764ace486af5fe32962a1f3 David Chester <david@frameable.com> 1677955900 +0000	commit (initial): initial commit
+9da33be043beb9a88764ace486af5fe32962a1f3 31d22a4a0a2455741173c99cbd4358d193955106 David Chester <david@frameable.com> 1677965981 +0000	commit: Content updated (article-1)
+31d22a4a0a2455741173c99cbd4358d193955106 b51bbd4f318ad894af22e1a64f4ae2f1d934169e David Chester <david@frameable.com> 1677973709 +0000	commit: Content updated (article-1)
+b51bbd4f318ad894af22e1a64f4ae2f1d934169e 46eb64166453073883e7d776e34db2fc62cc5d2d David Chester <david@frameable.com> 1677977456 +0000	commit: Page removed (article-1)
+46eb64166453073883e7d776e34db2fc62cc5d2d 9c2c43eb5dc425160f91a337f86dc4a2ebe92a0b David Chester <david@frameable.com> 1677985293 +0000	commit: Page renamed (article-3.md => article 5.md)
+9c2c43eb5dc425160f91a337f86dc4a2ebe92a0b 25fd932c63875e3d079fe8f245d4978a23105cb0 David Chester <david@frameable.com> 1677985293 +0000	commit: Content updated (article-5)
+25fd932c63875e3d079fe8f245d4978a23105cb0 0832a1e0c2843c159098332f516163b8138c5d05 David Chester <david@frameable.com> 1677985311 +0000	commit: Page renamed (article-5.md => article 3.md)
+0832a1e0c2843c159098332f516163b8138c5d05 fbdb9d6addf35e00925b54bba81f73951544e7bc David Chester <david@frameable.com> 1677985311 +0000	commit: Content updated (article-3)
+fbdb9d6addf35e00925b54bba81f73951544e7bc 09c77f5054135c7af4de1936992627a48899f3cd David Chester <david@frameable.com> 1677985326 +0000	commit: Page renamed (article-3.md => article 2.md)
+09c77f5054135c7af4de1936992627a48899f3cd a3aac58b76ada8c8b9796198780387ea8dcaacdb David Chester <david@frameable.com> 1677985326 +0000	commit: Content updated (article-2)
+a3aac58b76ada8c8b9796198780387ea8dcaacdb 47e095c68358344d9bd6ac284ceb2dc83842f28d David Chester <david@frameable.com> 1677985707 +0000	commit: Page renamed (article-2.md => article 1.md)
+47e095c68358344d9bd6ac284ceb2dc83842f28d 5da22b109253d7543d09cc2a49b4c280688a184a David Chester <david@frameable.com> 1677985707 +0000	commit: Content updated (article-1)
+5da22b109253d7543d09cc2a49b4c280688a184a d579117622b23dfb48ba319983fa1edf6e9ccc24 David Chester <david@frameable.com> 1677986609 +0000	commit: Content updated (new-oage)
+d579117622b23dfb48ba319983fa1edf6e9ccc24 cc0003c8423e6d8a1fe11d7236519f2fdde543f5 David Chester <david@frameable.com> 1677986629 +0000	commit: Page renamed (new-oage.md => article-11.md)
+cc0003c8423e6d8a1fe11d7236519f2fdde543f5 cbe8ca842d8414d53dcc9508c6d71625ffa91cbc David Chester <david@frameable.com> 1677986629 +0000	commit: Content updated (article-11)
+cbe8ca842d8414d53dcc9508c6d71625ffa91cbc 9da33be043beb9a88764ace486af5fe32962a1f3 David Chester <david@frameable.com> 1678024550 +0000	reset: moving to 9da33be043beb9a88764ace486af5fe32962a1f3
+9da33be043beb9a88764ace486af5fe32962a1f3 bfe7cfd483df94d62f577384181d15f532157c22 David Chester <david@frameable.com> 1678025329 +0000	commit: Content updated (new-page)
+bfe7cfd483df94d62f577384181d15f532157c22 9da33be043beb9a88764ace486af5fe32962a1f3 David Chester <david@frameable.com> 1678030146 +0000	reset: moving to 9da33be043beb9a88764ace486af5fe32962a1f3

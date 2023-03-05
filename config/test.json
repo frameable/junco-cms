@@ -1,0 +1,89 @@
+{
+  "application": {
+    "title": "Junco",
+    "logo": "",
+    "favicon": "",
+    "repository": "/tmp/junco-cms-test-content",
+    "docSubdir": "",
+    "remote": "origin",
+    "pushInterval": 10,
+    "secret": "change me",
+    "git": "git",
+    "skipGitCheck": false,
+    "loggingMode": 1,
+    "pedanticMarkdown": true,
+    "gfmBreaks": true,
+    "staticWhitelist": "/\\.png$/i, /\\.jpg$/i, /\\.gif$/i",
+    "proxyPath": "",
+    "allowHtml": false
+  },
+  "authentication": {
+    "google": {
+      "enabled": true,
+      "clientId": "24468878412-j501kqngjtnhm6iq7d3og5jtmeqv6lpd.apps.googleusercontent.com",
+      "clientSecret": "1kUl5ElwHfgPObtIkLSlTHOb",
+      "redirectURL": ""
+    },
+    "github": {
+      "enabled": false,
+      "clientId": "replace me with the real value",
+      "clientSecret": "replace me with the real value",
+      "redirectURL": ""
+    },
+    "ldap": {
+      "enabled": false,
+      "url": "ldap://example.org:389",
+      "bindDn": "",
+      "bindCredentials": "",
+      "searchBase": "ou=people,dc=example,dc=org",
+      "searchFilter": "(uid={{username}})",
+      "searchAttributes": ""
+    },
+    "local": {
+      "enabled": true,
+      "accounts": [
+        {
+          "username": "admin",
+          "passwordHash": "d033e22ae348aeb5660fc2140aec35850c4da997",
+          "email": "admin@local"
+        }
+      ]
+    }
+  },
+  "features": {
+    "markitup": false,
+    "codemirror": true,
+    "gravatar": true
+  },
+  "server": {
+    "hostname": "cms-dev.magpie.social",
+    "port": 8080,
+    "localOnly": false,
+    "baseUrl": "http://cms-dev.magpie.social",
+    "CORS": {
+      "enabled": false,
+      "allowedOrigin": "*"
+    }
+  },
+  "authorization": {
+    "anonRead": false,
+    "validMatches": ".+",
+    "emptyEmailMatches": false
+  },
+  "pages": {
+    "index": "Home",
+    "title": {
+      "fromFilename": true,
+      "fromContent": false,
+      "asciiOnly": false,
+      "lowercase": false
+    },
+    "itemsPerPage": 100
+  },
+  "customizations": {
+    "sidebar": "_sidebar.md",
+    "footer": "_footer.md",
+    "style": "_style.css",
+    "script": "_script.js"
+  }
+}

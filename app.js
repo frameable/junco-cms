@@ -80,18 +80,13 @@ function start() {
   }
 
   if (config.get('application').pushInterval && refspec.length > 0) {
-    setInterval(function () {
-      Git.pull(function (err) {
-        if (err) {
-          console.log('Error: ' + err)
-        } else {
-          Git.push(function (err) {
-            if (err) {
-              console.log('Error: ' + err)
-            }
-          })
-        }
-      })
+    setInterval(async function () {
+      try {
+        await Git.pull()
+        await Git.push()
+      } catch (e) {
+        console.log("push interval failed", e)
+      }
     }, config.get('application').pushInterval * 1000)
   }
 }

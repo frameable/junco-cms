@@ -53,7 +53,7 @@ async function _getPagesNew (req, res) {
     // This is not perfect, unfortunately
     title = namer.unwikify(req.query.page)
     page = new models.Page(title)
-    if (page.exists()) {
+    if (await page.exists()) {
       res.redirect(page.urlForShow())
       return
     }
@@ -138,7 +138,7 @@ async function _postPagesPage (req, res) {
   }
 
   // Highly unluckly (someone deleted the page we were editing)
-  if (!page.exists()) {
+  if (!(await page.exists())) {
     req.session.notice = 'The page does not exist anymore.'
     res.redirect(proxyPath + '/')
     return
@@ -160,12 +160,16 @@ async function _postPagesPage (req, res) {
       await page.renameTo(req.body.pageTitle)
       savePage();
     } catch (e) {
-      errors = [{
-        param: 'pageTitle',
-        msg: 'A page with this name already exists.',
-        value: ''
-      }]
-      fixErrors()
+      if (e.match(/already exists/)) {
+        errors = [{
+          param: 'pageTitle',
+          msg: 'A page with this name already exists.',
+          value: ''
+        }]
+        fixErrors()
+      } else {
+        throw e;
+      }
     }
   } else {
     savePage()
