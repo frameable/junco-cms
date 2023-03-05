@@ -1,6 +1,8 @@
 node_modules/*
 config.yaml
 data/*
+test/var/content.git
+
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
